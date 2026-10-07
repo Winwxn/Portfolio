@@ -4,414 +4,243 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>WIN — Creative Portfolio</title>
+  <title>Portfolio</title>
+
+  <!-- Bootstrap 5 -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, #dbeafe, transparent 35%),
+        radial-gradient(circle at top right, #fce7f3, transparent 35%),
+        #f4f4f4;
       font-family: Arial, Helvetica, sans-serif;
-      background: #f7f7f3;
+    }
+
+    /* =========================
+       GLASS NAVBAR
+    ========================== */
+    .glass-navbar {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 48px);
+      max-width: 1000px;
+
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      border: 1px solid rgba(255, 255, 255, 0.55);
+
+      box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+      border-radius: 20px;
+      padding: 10px 18px;
+
+      z-index: 9999;
+    }
+
+    .glass-navbar .navbar-nav {
+      gap: 10px;
+    }
+
+    .glass-navbar .nav-link {
       color: #111;
-      line-height: 1.5;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 10px 18px !important;
+      border-radius: 12px;
+      transition: 0.25s ease;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    .glass-navbar .nav-link:hover {
+      background: rgba(255, 255, 255, 0.6);
     }
 
-    .container {
-      width: min(1400px, 92%);
-      margin: auto;
+    /* =========================
+       DROPDOWN
+    ========================== */
+    .glass-dropdown {
+      margin-top: 12px !important;
+
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 16px;
+
+      padding: 8px;
+
+      box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.1);
+
+      min-width: 190px;
     }
 
-    nav {
-      height: 90px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: -1px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 30px;
+    .glass-dropdown .dropdown-item {
+      border-radius: 10px;
+      padding: 10px 14px;
       font-size: 14px;
+      color: #111;
+      transition: 0.2s ease;
     }
 
-    .hero {
-      min-height: 78vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      border-bottom: 1px solid #bbb;
+    .glass-dropdown .dropdown-item:hover {
+      background: rgba(255, 255, 255, 0.8);
     }
 
-    .eyebrow {
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 28px;
+    /* Mobile */
+    @media (max-width: 991px) {
+      .glass-navbar {
+        width: calc(100% - 24px);
+        top: 12px;
+      }
+
+      .navbar-collapse {
+        margin-top: 12px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+      }
+
+      .glass-dropdown {
+        box-shadow: none;
+        margin-top: 5px !important;
+      }
     }
 
-    h1 {
-      font-size: clamp(58px, 9vw, 145px);
-      line-height: .88;
-      letter-spacing: -6px;
-      max-width: 1200px;
-    }
-
-    .hero-bottom {
-      margin-top: 55px;
-      display: flex;
-      justify-content: space-between;
-      gap: 40px;
-      align-items: flex-end;
-    }
-
-    .hero-description {
-      max-width: 500px;
-      font-size: 19px;
-    }
-
-    .scroll {
-      font-size: 14px;
-      border-bottom: 1px solid;
-      padding-bottom: 5px;
-    }
-
-    section {
-      padding: 100px 0;
-    }
-
-    .section-title {
-      font-size: 14px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 50px;
-    }
-
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-    }
-
-    .project {
-      position: relative;
-    }
-
-    .project-image {
-      aspect-ratio: 4 / 3;
-      background: #deded7;
-      overflow: hidden;
+    /* Demo background */
+    .hero-demo {
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: clamp(28px, 4vw, 60px);
-      font-weight: 800;
-      transition: .35s ease;
+      text-align: center;
+      padding: 120px 20px 40px;
     }
 
-    .project:hover .project-image {
-      transform: scale(.985);
-    }
-
-    .project-info {
-      padding: 16px 2px 35px;
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .project-name {
-      font-size: 23px;
+    .hero-demo h1 {
+      font-size: clamp(50px, 9vw, 120px);
       font-weight: 700;
-    }
-
-    .project-type {
-      font-size: 13px;
-      opacity: .55;
-      text-align: right;
-    }
-
-    .services {
-      border-top: 1px solid #bbb;
-    }
-
-    .service {
-      padding: 20px 0;
-      border-bottom: 1px solid #bbb;
-      font-size: clamp(30px, 5vw, 70px);
-      letter-spacing: -3px;
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 80px;
-    }
-
-    .about-text {
-      font-size: clamp(30px, 4vw, 62px);
-      line-height: 1.05;
-      letter-spacing: -3px;
-    }
-
-    footer {
-      background: #111;
-      color: white;
-      padding: 100px 0 40px;
-    }
-
-    .footer-title {
-      font-size: clamp(55px, 8vw, 130px);
-      line-height: .9;
       letter-spacing: -5px;
-    }
-
-    .footer-bottom {
-      margin-top: 90px;
-      padding-top: 25px;
-      border-top: 1px solid #555;
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-    }
-
-    @media (max-width: 800px) {
-      nav {
-        height: 70px;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      h1 {
-        letter-spacing: -3px;
-      }
-
-      .hero-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .projects {
-        grid-template-columns: 1fr;
-      }
-
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-
-      section {
-        padding: 70px 0;
-      }
     }
   </style>
 </head>
 
 <body>
 
-  <header class="container">
-    <nav>
-      <div class="logo">WIN.</div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg glass-navbar">
 
-      <div class="nav-links">
-        <a href="#work">Work</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </nav>
-  </header>
+    <div class="container-fluid">
 
+      <!-- Mobile Button -->
+      <button
+        class="navbar-toggler border-0 shadow-none ms-auto"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#portfolioNavbar"
+        aria-controls="portfolioNavbar"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-  <main>
+      <!-- Navigation -->
+      <div
+        class="collapse navbar-collapse justify-content-center"
+        id="portfolioNavbar"
+      >
 
-    <section class="hero container">
+        <ul class="navbar-nav align-items-lg-center">
 
-      <div class="eyebrow">
-        Creative • Content • Video
-      </div>
+          <!-- Home -->
+          <li class="nav-item">
+            <a class="nav-link" href="#home">
+              Home
+            </a>
+          </li>
 
-      <h1>
-        Ideas people<br>
-        want to watch.
-      </h1>
+          <!-- Work Dropdown -->
+          <li class="nav-item dropdown">
 
-      <div class="hero-bottom">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Work
+            </a>
 
-        <p class="hero-description">
-          Creative content, storytelling and visual ideas
-          built for the scroll-first world.
-        </p>
+            <ul class="dropdown-menu glass-dropdown">
 
-        <a class="scroll" href="#work">
-          Selected work ↓
-        </a>
+              <li>
+                <a class="dropdown-item" href="#graphic">
+                  Graphic
+                </a>
+              </li>
 
-      </div>
+              <li>
+                <a class="dropdown-item" href="#video-editor">
+                  Video Editor
+                </a>
+              </li>
 
-    </section>
+              <li>
+                <a class="dropdown-item" href="#photographer">
+                  Photographer
+                </a>
+              </li>
 
+              <li>
+                <a class="dropdown-item" href="#motion">
+                  Motion
+                </a>
+              </li>
 
-    <section id="work" class="container">
+            </ul>
 
-      <div class="section-title">
-        Selected Work — 2026
-      </div>
+          </li>
 
-      <div class="projects">
+          <!-- About -->
+          <li class="nav-item">
+            <a class="nav-link" href="#about">
+              About
+            </a>
+          </li>
 
-        <a class="project" href="#">
-          <div class="project-image">
-            HI-D
-          </div>
+        </ul>
 
-          <div class="project-info">
-            <div class="project-name">
-              HI-D Campaign
-            </div>
-
-            <div class="project-type">
-              Creative Direction<br>
-              Short-form Content
-            </div>
-          </div>
-        </a>
-
-
-        <a class="project" href="#">
-          <div class="project-image">
-            DENA
-          </div>
-
-          <div class="project-info">
-            <div class="project-name">
-              Dena Éclat
-            </div>
-
-            <div class="project-type">
-              Campaign<br>
-              Visual Direction
-            </div>
-          </div>
-        </a>
-
-
-        <a class="project" href="#">
-          <div class="project-image">
-            STORY
-          </div>
-
-          <div class="project-info">
-            <div class="project-name">
-              Football Story
-            </div>
-
-            <div class="project-type">
-              Storytelling<br>
-              Video Content
-            </div>
-          </div>
-        </a>
-
-
-        <a class="project" href="#">
-          <div class="project-image">
-            SOCIAL
-          </div>
-
-          <div class="project-info">
-            <div class="project-name">
-              Social Content
-            </div>
-
-            <div class="project-type">
-              TikTok<br>
-              Reels / Shorts
-            </div>
-          </div>
-        </a>
-
-      </div>
-
-    </section>
-
-
-    <section class="services container">
-
-      <div class="section-title">
-        What I Do
-      </div>
-
-      <div class="service">Creative Direction</div>
-      <div class="service">Content Strategy</div>
-      <div class="service">Copywriting</div>
-      <div class="service">Video Editing</div>
-      <div class="service">Visual Direction</div>
-
-    </section>
-
-
-    <section id="about" class="container">
-
-      <div class="about-grid">
-
-        <div class="section-title">
-          About
-        </div>
-
-        <div class="about-text">
-          I turn ideas into stories
-          that make people stop,
-          watch and remember.
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <footer id="contact">
-
-    <div class="container">
-
-      <div class="section-title">
-        Contact
-      </div>
-
-      <div class="footer-title">
-        LET'S MAKE<br>
-        SOMETHING.
-      </div>
-
-      <div class="footer-bottom">
-        <div>Creative Portfolio © 2026</div>
-        <div>Email • Instagram • TikTok</div>
       </div>
 
     </div>
 
-  </footer>
+  </nav>
+
+
+  <!-- แค่เอาไว้ให้เห็น Navbar ชัด ๆ -->
+  <section class="hero-demo" id="home">
+    <h1>PORTFOLIO</h1>
+  </section>
+
+
+  <!-- Bootstrap JS -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
 
 </body>
 </html>
