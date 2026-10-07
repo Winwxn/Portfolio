@@ -1,12 +1,417 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Portfolio</title>
+
+  <title>WIN — Creative Portfolio</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f7f3;
+      color: #111;
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1400px, 92%);
+      margin: auto;
+    }
+
+    nav {
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      font-size: 14px;
+    }
+
+    .hero {
+      min-height: 78vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-bottom: 1px solid #bbb;
+    }
+
+    .eyebrow {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-size: clamp(58px, 9vw, 145px);
+      line-height: .88;
+      letter-spacing: -6px;
+      max-width: 1200px;
+    }
+
+    .hero-bottom {
+      margin-top: 55px;
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      align-items: flex-end;
+    }
+
+    .hero-description {
+      max-width: 500px;
+      font-size: 19px;
+    }
+
+    .scroll {
+      font-size: 14px;
+      border-bottom: 1px solid;
+      padding-bottom: 5px;
+    }
+
+    section {
+      padding: 100px 0;
+    }
+
+    .section-title {
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 50px;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .project {
+      position: relative;
+    }
+
+    .project-image {
+      aspect-ratio: 4 / 3;
+      background: #deded7;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(28px, 4vw, 60px);
+      font-weight: 800;
+      transition: .35s ease;
+    }
+
+    .project:hover .project-image {
+      transform: scale(.985);
+    }
+
+    .project-info {
+      padding: 16px 2px 35px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .project-name {
+      font-size: 23px;
+      font-weight: 700;
+    }
+
+    .project-type {
+      font-size: 13px;
+      opacity: .55;
+      text-align: right;
+    }
+
+    .services {
+      border-top: 1px solid #bbb;
+    }
+
+    .service {
+      padding: 20px 0;
+      border-bottom: 1px solid #bbb;
+      font-size: clamp(30px, 5vw, 70px);
+      letter-spacing: -3px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+    }
+
+    .about-text {
+      font-size: clamp(30px, 4vw, 62px);
+      line-height: 1.05;
+      letter-spacing: -3px;
+    }
+
+    footer {
+      background: #111;
+      color: white;
+      padding: 100px 0 40px;
+    }
+
+    .footer-title {
+      font-size: clamp(55px, 8vw, 130px);
+      line-height: .9;
+      letter-spacing: -5px;
+    }
+
+    .footer-bottom {
+      margin-top: 90px;
+      padding-top: 25px;
+      border-top: 1px solid #555;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    @media (max-width: 800px) {
+      nav {
+        height: 70px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      h1 {
+        letter-spacing: -3px;
+      }
+
+      .hero-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .projects {
+        grid-template-columns: 1fr;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      section {
+        padding: 70px 0;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>My Portfolio</h1>
-  <p>เว็บไซต์กำลังเริ่มต้น 🚀</p>
+
+  <header class="container">
+    <nav>
+      <div class="logo">WIN.</div>
+
+      <div class="nav-links">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+
+  <main>
+
+    <section class="hero container">
+
+      <div class="eyebrow">
+        Creative • Content • Video
+      </div>
+
+      <h1>
+        Ideas people<br>
+        want to watch.
+      </h1>
+
+      <div class="hero-bottom">
+
+        <p class="hero-description">
+          Creative content, storytelling and visual ideas
+          built for the scroll-first world.
+        </p>
+
+        <a class="scroll" href="#work">
+          Selected work ↓
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <section id="work" class="container">
+
+      <div class="section-title">
+        Selected Work — 2026
+      </div>
+
+      <div class="projects">
+
+        <a class="project" href="#">
+          <div class="project-image">
+            HI-D
+          </div>
+
+          <div class="project-info">
+            <div class="project-name">
+              HI-D Campaign
+            </div>
+
+            <div class="project-type">
+              Creative Direction<br>
+              Short-form Content
+            </div>
+          </div>
+        </a>
+
+
+        <a class="project" href="#">
+          <div class="project-image">
+            DENA
+          </div>
+
+          <div class="project-info">
+            <div class="project-name">
+              Dena Éclat
+            </div>
+
+            <div class="project-type">
+              Campaign<br>
+              Visual Direction
+            </div>
+          </div>
+        </a>
+
+
+        <a class="project" href="#">
+          <div class="project-image">
+            STORY
+          </div>
+
+          <div class="project-info">
+            <div class="project-name">
+              Football Story
+            </div>
+
+            <div class="project-type">
+              Storytelling<br>
+              Video Content
+            </div>
+          </div>
+        </a>
+
+
+        <a class="project" href="#">
+          <div class="project-image">
+            SOCIAL
+          </div>
+
+          <div class="project-info">
+            <div class="project-name">
+              Social Content
+            </div>
+
+            <div class="project-type">
+              TikTok<br>
+              Reels / Shorts
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <section class="services container">
+
+      <div class="section-title">
+        What I Do
+      </div>
+
+      <div class="service">Creative Direction</div>
+      <div class="service">Content Strategy</div>
+      <div class="service">Copywriting</div>
+      <div class="service">Video Editing</div>
+      <div class="service">Visual Direction</div>
+
+    </section>
+
+
+    <section id="about" class="container">
+
+      <div class="about-grid">
+
+        <div class="section-title">
+          About
+        </div>
+
+        <div class="about-text">
+          I turn ideas into stories
+          that make people stop,
+          watch and remember.
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <footer id="contact">
+
+    <div class="container">
+
+      <div class="section-title">
+        Contact
+      </div>
+
+      <div class="footer-title">
+        LET'S MAKE<br>
+        SOMETHING.
+      </div>
+
+      <div class="footer-bottom">
+        <div>Creative Portfolio © 2026</div>
+        <div>Email • Instagram • TikTok</div>
+      </div>
+
+    </div>
+
+  </footer>
+
 </body>
 </html>
