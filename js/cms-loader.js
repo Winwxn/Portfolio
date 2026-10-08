@@ -5,7 +5,7 @@
   if (videoContainer || graphicContainer) {
     const jsonUrl = window.location.pathname.includes('/work/') ? '../data/database.json' : 'data/database.json';
     
-    fetch(jsonUrl)
+    fetch(jsonUrl + "?t=" + new Date().getTime())
       .then(res => res.json())
       .then(data => {
         const projects = data.projects || [];
@@ -53,7 +53,7 @@
         
         if (type === 'video') {
            if (driveId) {
-             mediaHtml = `<iframe src="https://drive.google.com/file/d/${driveId}/preview" width="100%" height="100%" style="border:none; border-radius: 12px; min-height: 60vh; background: #000;"></iframe>`;
+             mediaHtml = `<iframe src="https://drive.google.com/file/d/${driveId}/preview" width="100%" height="100%" style="border:none; border-radius: 12px; min-height: 55vh; background: #000;"></iframe>`;
            } else {
              mediaHtml = `<div class="p-5 text-secondary border border-dashed rounded">Invalid Google Drive Link</div>`;
            }
@@ -65,7 +65,7 @@
            }
         }
 
-        const colClass = type === 'video' ? 'col-lg-5 col-md-6 col-sm-10 mb-4' : 'col-lg-8 col-md-10 mb-4';
+        const colClass = 'col-lg-4 col-md-6 col-12 mb-4';
         
         html += `
           <div class="${colClass}">
