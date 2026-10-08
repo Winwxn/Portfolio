@@ -1,7 +1,8 @@
 ﻿backend:
   name: github
-  repo: your-username/your-repo
+  repo: Winwxn/Portfolio
   branch: main
+  app_id: Ov23liX0v572d4wTqoaq
 
 media_folder: "images"
 public_folder: "images"
