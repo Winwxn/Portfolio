@@ -1,0 +1,295 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pricing - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- ===============================
+       PRELOADER
+  =============================== -->
+  <div id="preloader" class="glass-preloader">
+    <div class="loader-content">
+      <div class="spinner"></div>
+      <div class="loading-text">LOADING</div>
+    </div>
+  </div>
+
+  <!-- ===============================
+       NAVBAR
+  =============================== -->
+
+  <nav
+    class="navbar navbar-expand-lg glass-navbar"
+    id="mainNavbar"
+  >
+
+    <div class="container-fluid">
+
+      <!-- Mobile Toggle -->
+
+      <button
+        class="navbar-toggler border-0 shadow-none ms-auto"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#portfolioNavbar"
+        aria-controls="portfolioNavbar"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+      <!-- Navigation -->
+
+      <div
+        class="collapse navbar-collapse justify-content-center"
+        id="portfolioNavbar"
+      >
+
+        <ul class="navbar-nav align-items-lg-center">
+
+
+          <!-- HOME -->
+
+          <li class="nav-item magnetic-item">
+            <a
+              class="nav-link"
+              href="index.html"
+            >
+              Home
+            </a>
+          </li>
+
+
+          <!-- WORK -->
+
+          <li class="nav-item dropdown magnetic-item">
+
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Work
+            </a>
+
+            <ul class="dropdown-menu glass-dropdown">
+
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="work/graphic.html"
+                >
+                  Graphic
+                </a>
+              </li>
+
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="work/editor.html"
+                >
+                  Video Editor
+                </a>
+              </li>
+
+            </ul>
+
+          </li>
+
+
+          <!-- PRICING -->
+
+          <li class="nav-item magnetic-item">
+            <a
+              class="nav-link"
+              href="pricing.html"
+            >
+              Pricing
+            </a>
+          </li>
+
+
+          <!-- CONTACT -->
+
+          <li class="nav-item magnetic-item">
+            <a
+              class="nav-link"
+              href="contact.html"
+            >
+              Contact
+            </a>
+          </li>
+
+
+                    <!-- ABOUT -->
+          <li class="nav-item magnetic-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+
+          <!-- SEARCH BAR -->
+          <li class="nav-item ms-lg-3 d-flex align-items-center">
+            <div class="search-container position-relative">
+              <input type="text" class="glass-search" placeholder="Search..." autocomplete="off">
+              <div class="glass-search-results"></div>
+            </div>
+          </li>
+          <!-- THEME TOGGLE -->
+          <li class="nav-item ms-lg-2 d-flex align-items-center">
+            <button class="theme-toggle-btn" aria-label="Toggle Dark Mode">🌙</button>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+  <!-- ===============================
+       PRICING HERO
+  =============================== -->
+
+  <section class="hero reveal" id="pricing-hero">
+    <h1>PRICING</h1>
+  </section>
+
+  <section class="skills-section">
+    <div class="container">
+      <div class="section-label reveal" style="text-align: center;">CHOOSE A SERVICE</div>
+      
+      <!-- Single Services -->
+      <div class="row justify-content-center" style="margin-bottom: 30px;">
+        <div class="col-md-5 mb-4">
+          <div class="skill-card reveal" style="height: 100%;">
+            <span class="skill-number">01</span>
+            <h3 style="margin-bottom: 20px;">ออกแบบกราฟิก</h3>
+            <p style="color: #444;">ออกแบบภาพโฆษณา แบนเนอร์ โพสต์โซเชียลมีเดีย และสื่อกราฟิกทุกชนิด</p>
+            <h4 style="font-size: 28px; font-weight: bold; margin-top: auto; color: #111;">เริ่มต้น 600.- <span style="font-size: 16px; font-weight: normal; color: #666;">/ รูป</span></h4>
+          </div>
+        </div>
+        <div class="col-md-5 mb-4">
+          <div class="skill-card reveal" style="height: 100%;">
+            <span class="skill-number">02</span>
+            <h3 style="margin-bottom: 20px;">ตัดต่อวิดีโอ</h3>
+            <p style="color: #444;">ตัดต่อคลิปสั้น Reels, TikTok, YouTube พร้อมใส่ Effect, เสียงประกอบ และซับไตเติล</p>
+            <h4 style="font-size: 28px; font-weight: bold; margin-top: auto; color: #111;">เริ่มต้น 700.- <span style="font-size: 16px; font-weight: normal; color: #666;">/ คลิป</span></h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label reveal" style="text-align: center; margin-top: 20px;">BULK PACKAGES (แบบเหมา)</div>
+
+      <!-- Bulk Packages -->
+      <div class="row justify-content-center" style="margin-bottom: 70px;">
+        <div class="col-md-4 mb-4">
+          <div class="skill-card reveal" data-bs-toggle="modal" data-bs-target="#package01Modal" style="height: 100%; background: rgba(255, 255, 255, 0.55); box-shadow: 0 22px 55px rgba(30,30,50,0.11); cursor: pointer;">
+            <span class="skill-number">PACKAGE 01</span>
+            <h3 style="margin-bottom: 20px;">กราฟิก 10 รูปขึ้นไป</h3>
+            <p style="color: #444;">เหมาะสำหรับแบรนด์ที่ต้องการคอนเทนต์ลงเพจอย่างต่อเนื่องและคุ้มค่าที่สุด</p>
+            <h4 style="font-size: 28px; font-weight: bold; margin-top: auto; color: #111;">เหลือเพียง 500.- <span style="font-size: 16px; font-weight: normal; color: #666;">/ รูป</span></h4>
+            <div style="position: absolute; bottom: 20px; right: 25px; opacity: 0.5;">
+              <span style="font-size: 12px; font-weight: 500; letter-spacing: 1px;">คลิกดูรายละเอียด &#8594;</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="skill-card reveal" data-bs-toggle="modal" data-bs-target="#package02Modal" style="height: 100%; background: rgba(255, 255, 255, 0.55); box-shadow: 0 22px 55px rgba(30,30,50,0.11); cursor: pointer;">
+            <span class="skill-number">PACKAGE 02</span>
+            <h3 style="margin-bottom: 20px;">วิดีโอ 10 คลิปขึ้นไป</h3>
+            <p style="color: #444;">แพ็กเกจสุดคุ้มสำหรับทำซีรีส์วิดีโอสั้น หรืออัปเดตช่องอย่างสม่ำเสมอ</p>
+            <h4 style="font-size: 28px; font-weight: bold; margin-top: auto; color: #111;">เหลือเพียง 600.- <span style="font-size: 16px; font-weight: normal; color: #666;">/ คลิป</span></h4>
+            <div style="position: absolute; bottom: 20px; right: 25px; opacity: 0.5;">
+              <span style="font-size: 12px; font-weight: 500; letter-spacing: 1px;">คลิกดูรายละเอียด &#8594;</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="skill-card reveal" data-bs-toggle="modal" data-bs-target="#package03Modal" style="height: 100%; background: rgba(255, 255, 255, 0.55); box-shadow: 0 22px 55px rgba(30,30,50,0.11); cursor: pointer;">
+            <span class="skill-number">PACKAGE 03</span>
+            <h3 style="margin-bottom: 10px;">กราฟิก + วิดีโอ</h3>
+            <p style="color: #444; font-weight: 500; margin-bottom: 15px;">(กราฟิก 15 รูป / คลิปวิดีโอ 20 คลิป)</p>
+            <p style="color: #444;">เหมาะกับแบรนด์เริ่มต้นที่ต้องการมี Content ลงช่องทางอย่างสม่ำเสมอ</p>
+            <h4 style="font-size: 28px; font-weight: bold; margin-top: auto; color: #111;">ติดต่อสอบถาม</h4>
+            <div style="position: absolute; bottom: 20px; right: 25px; opacity: 0.5;">
+              <span style="font-size: 12px; font-weight: 500; letter-spacing: 1px;">คลิกดูรายละเอียด &#8594;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================
+       MODALS
+  =============================== -->
+  <!-- Modal for Package 01 -->
+  <div class="modal fade" id="package01Modal" tabindex="-1" aria-labelledby="package01ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content glass-modal">
+        <div class="modal-header">
+          <h5 class="modal-title" id="package01ModalLabel" style="font-weight: 700; color: #111;">รายละเอียดแพ็กเกจ 01</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Test 01
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Package 02 -->
+  <div class="modal fade" id="package02Modal" tabindex="-1" aria-labelledby="package02ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content glass-modal">
+        <div class="modal-header">
+          <h5 class="modal-title" id="package02ModalLabel" style="font-weight: 700; color: #111;">รายละเอียดแพ็กเกจ 02</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Test 02
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Package 03 -->
+  <div class="modal fade" id="package03Modal" tabindex="-1" aria-labelledby="package03ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content glass-modal">
+        <div class="modal-header">
+          <h5 class="modal-title" id="package03ModalLabel" style="font-weight: 700; color: #111;">รายละเอียดแพ็กเกจ 03</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Test 03
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/script.js"></script>
+
+</body>
+</html>
