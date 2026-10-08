@@ -1,12 +1,12 @@
-﻿{
+{
   "projects": [
     {
       "title": "ผลงานการตัดต่อ โรงพยาบาลพญาไท พหลโยธิน",
       "category": "Video Editor",
       "items": [
         {
-          "url": "dummy_link",
-          "description": "รอใส่ลิงก์ Google Drive"
+          "url": "https://drive.google.com/file/d/1JQCauVc5SjwLOYUlMvVWzBOahEflhuuj/view?usp=sharing",
+          "description": "หมอเพชรรัตน์ x หมอจากนอนสบาย"
         }
       ]
     }
