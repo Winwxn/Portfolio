@@ -2,6 +2,7 @@
   name: github
   repo: Winwxn/Portfolio
   branch: main
+  auth_type: pkce
   app_id: Ov23liX0v572d4wTqoaq
 
 media_folder: "images"
