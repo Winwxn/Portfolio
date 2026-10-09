@@ -242,3 +242,75 @@ window.addEventListener("load", () => {
     document.body.classList.remove("loading-state");
   }
 });
+
+/* ===============================
+   FLOATING PARALLAX BACKGROUND
+=============================== */
+document.addEventListener('DOMContentLoaded', () => {
+  // Check if we are inside a subfolder (e.g. /work/)
+  const isSubfolder = window.location.pathname.includes('/work/');
+  const imgPathPrefix = isSubfolder ? '../' : '';
+
+  // 1. Create Container
+  const bgContainer = document.createElement('div');
+  bgContainer.id = 'parallax-bg-container';
+  Object.assign(bgContainer.style, {
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    width: '100vw',
+    height: '100vh',
+    pointerEvents: 'none', // ทะลุการคลิกไปเลย
+    zIndex: '-1', // ให้อยู่ข้างหลังสุด
+    overflow: 'hidden'
+  });
+
+  // 2. Create Slate Image (Left)
+  const slateImg = document.createElement('img');
+  slateImg.src = imgPathPrefix + 'images/slate.png';
+  Object.assign(slateImg.style, {
+    position: 'absolute',
+    left: '-5%',
+    top: '15%',
+    width: '350px',
+    maxWidth: '40vw',
+    opacity: '0.8',
+    filter: 'blur(2px)', // ทำให้ดูมีมิติเบลอ ๆ หน่อย (Depth of Field)
+    transition: 'transform 0.1s ease-out'
+  });
+
+  // 3. Create Mac Image (Right)
+  const macImg = document.createElement('img');
+  macImg.src = imgPathPrefix + 'images/mac.png';
+  Object.assign(macImg.style, {
+    position: 'absolute',
+    right: '-5%',
+    top: '35%',
+    width: '450px',
+    maxWidth: '50vw',
+    opacity: '0.8',
+    filter: 'blur(1px)',
+    transition: 'transform 0.1s ease-out'
+  });
+
+  // 4. Append to document
+  bgContainer.appendChild(slateImg);
+  bgContainer.appendChild(macImg);
+  document.body.appendChild(bgContainer);
+
+  // 5. Parallax Logic (เลื่อนตามเมาส์แบบหนืด ๆ)
+  document.addEventListener('mousemove', (e) => {
+    // หาจุดกึ่งกลางจอ
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    
+    // คำนวณระยะเมาส์จากจุดกึ่งกลาง (หารเยอะ = เลื่อนน้อย/หนืด)
+    const moveX = (e.clientX - centerX) / 40; 
+    const moveY = (e.clientY - centerY) / 40;
+
+    // ขยับรูป (slate ไปทางนึง mac สวนอีกทางนึง เพื่อมิติที่ลึกขึ้น)
+    slateImg.style.transform = \	ranslate(\px, \px)\;
+    macImg.style.transform = \	ranslate(\px, \px)\;
+  });
+});
+
