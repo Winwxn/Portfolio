@@ -34,10 +34,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const accordionId = `accordion-${type}`;
-    let html = `<div class="container mb-5 reveal active"><div class="accordion" id="${accordionId}">`;
+    let html = `
+      <div class="container mb-5 reveal active">
+        <div class="text-center mb-4 text-secondary" style="animation: fadeIn 0.5s ease;">
+          <span style="background: rgba(255,255,255,0.7); padding: 8px 20px; border-radius: 30px; backdrop-filter: blur(10px); border: 1px solid rgba(0,0,0,0.05); display: inline-block; box-shadow: 0 2px 10px rgba(0,0,0,0.02); font-size: 0.95rem;">
+            💡 สามารถกดเลือกที่ชื่อโปรเจกต์ด้านล่าง เพื่อดูผลงานได้เลยครับ
+          </span>
+        </div>
+        <div class="accordion" id="${accordionId}">
+    `;
     
     projects.forEach((project, index) => {
-      const isFirst = index === 0;
+      const isFirst = false; // ปิด Accordion ไว้ทั้งหมดโดยเริ่มต้น
       const collapseId = `collapse-${type}-${index}`;
       const headingId = `heading-${type}-${index}`;
 
