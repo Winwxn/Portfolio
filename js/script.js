@@ -280,10 +280,10 @@ window.addEventListener('load', () => {
   slateImg.src = imgPathPrefix + 'images/slate.png';
   Object.assign(slateImg.style, {
     position: 'absolute',
-    left: '-5%',
+    left: '-2%',
     top: '15%',
-    width: '350px',
-    maxWidth: '40vw',
+    width: '180px', // ลดจาก 350px
+    maxWidth: '25vw',
     opacity: '0.8',
     filter: 'blur(2px)', // ทำให้ดูมีมิติเบลอ ๆ หน่อย (Depth of Field)
     transition: 'transform 0.1s ease-out'
@@ -294,10 +294,10 @@ window.addEventListener('load', () => {
   macImg.src = imgPathPrefix + 'images/mac.png';
   Object.assign(macImg.style, {
     position: 'absolute',
-    right: '-5%',
+    right: '-2%',
     top: '35%',
-    width: '450px',
-    maxWidth: '50vw',
+    width: '250px', // ลดจาก 450px
+    maxWidth: '35vw',
     opacity: '0.8',
     filter: 'blur(1px)',
     transition: 'transform 0.1s ease-out'
