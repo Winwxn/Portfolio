@@ -364,7 +364,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       
-      function buildSlider(sliderId, items, carouselId, isVideo) {
+      function buildSlider(sliderId, items, carouselId, isVideo, itemsPerSlide = 1, totalSlides = 5) {
         const sliderContainer = document.getElementById(sliderId);
         if (!sliderContainer) return;
 
@@ -373,68 +373,96 @@
           return;
         }
 
-        // Shuffle
-        for (let i = items.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [items[i], items[j]] = [items[j], items[i]];
-        }
-
-        const selectedItems = items.slice(0, 5);
-
         let indicatorsHtml = '';
         let innerHtml = '';
 
-        selectedItems.forEach((item, index) => {
-          const activeClass = index === 0 ? 'active' : '';
-          
-          let mediaHtml = '';
-          if (isVideo) {
-            let driveId = null;
-            if (item.url) {
-              const match = item.url.match(/\/d\/(.+?)\//) || item.url.match(/id=(.+?)(&|$)/);
-              if (match) driveId = match[1];
-            }
-            if (driveId) {
-              mediaHtml = `<iframe src="https://drive.google.com/file/d/${driveId}/preview" width="100%" height="100%" style="border:none; min-height: 250px; background:#000;"></iframe>`;
-            } else {
-              mediaHtml = `<div style="height: 250px; display:flex; align-items:center; justify-content:center; color:#fff;">Invalid Link</div>`;
-            }
-          } else {
-            // It's a Graphic (Image)
-            let imgUrl = item.url || '';
-            // If it's a google drive link, format it for image display
-            if (imgUrl.includes('drive.google.com') && (imgUrl.includes('/d/') || imgUrl.includes('id='))) {
-                const match = imgUrl.match(/\/d\/(.+?)\//) || imgUrl.match(/id=(.+?)(&|$)/);
-                if (match) imgUrl = `https://lh3.googleusercontent.com/d/${match[1]}`;
-            }
-            mediaHtml = `<div style="width: 100%; height: 250px; background-image: url('${imgUrl}'); background-size: cover; background-position: center; background-color: #000;"></div>`;
+        if (itemsPerSlide === 1) {
+          // โหมดปกติ (1 รูป/วิดีโอ ต่อ 1 สไลด์)
+          let shuffled = [...items];
+          for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
           }
+          const selectedItems = shuffled.slice(0, totalSlides);
 
-          indicatorsHtml += `<button type="button" data-bs-target="#${carouselId}" data-bs-slide-to="${index}" class="${activeClass}" aria-label="Slide ${index + 1}"></button>`;
-          
-          innerHtml += `
-            <div class="carousel-item ${activeClass}" style="height: 100%;">
-              ${mediaHtml}
-              <div class="carousel-caption d-none d-md-block" style="background: rgba(0,0,0,0.5); border-radius: 8px; padding: 5px; bottom: 10px;">
-                <p style="margin:0; font-size: 0.9rem;">${item.description || ''}</p>
+          selectedItems.forEach((item, index) => {
+            const activeClass = index === 0 ? 'active' : '';
+            
+            let mediaHtml = '';
+            if (isVideo) {
+              let driveId = null;
+              if (item.url) {
+                const match = item.url.match(/\/d\/(.+?)\//) || item.url.match(/id=(.+?)(&|$)/);
+                if (match) driveId = match[1];
+              }
+              if (driveId) {
+                mediaHtml = `<iframe src="https://drive.google.com/file/d/${driveId}/preview" width="100%" height="100%" style="border:none; min-height: 250px; background:#000;"></iframe>`;
+              } else {
+                mediaHtml = `<div style="height: 250px; display:flex; align-items:center; justify-content:center; color:#fff;">Invalid Link</div>`;
+              }
+            } else {
+              let imgUrl = item.url || '';
+              if (imgUrl.includes('drive.google.com') && (imgUrl.includes('/d/') || imgUrl.includes('id='))) {
+                  const match = imgUrl.match(/\/d\/(.+?)\//) || imgUrl.match(/id=(.+?)(&|$)/);
+                  if (match) imgUrl = `https://lh3.googleusercontent.com/d/${match[1]}`;
+              }
+              mediaHtml = `<div style="width: 100%; height: 250px; background-image: url('${imgUrl}'); background-size: cover; background-position: center; background-color: #000;"></div>`;
+            }
+
+            indicatorsHtml += `<button type="button" data-bs-target="#${carouselId}" data-bs-slide-to="${index}" class="${activeClass}" aria-label="Slide ${index + 1}"></button>`;
+            
+            innerHtml += `
+              <div class="carousel-item ${activeClass}" style="height: 100%;">
+                ${mediaHtml}
+                <div class="carousel-caption d-none d-md-block" style="background: rgba(0,0,0,0.5); border-radius: 8px; padding: 5px; bottom: 10px;">
+                  <p style="margin:0; font-size: 0.9rem;">${item.description || ''}</p>
+                </div>
               </div>
-            </div>
-          `;
-        });
+            `;
+          });
+        } else {
+          // โหมด Grid (หลายรูปต่อ 1 สไลด์ เช่น 3 รูปแนวตั้ง)
+          for (let s = 0; s < totalSlides; s++) {
+            const activeClass = s === 0 ? 'active' : '';
+            indicatorsHtml += `<button type="button" data-bs-target="#${carouselId}" data-bs-slide-to="${s}" class="${activeClass}" aria-label="Slide ${s + 1}"></button>`;
+            
+            // สร้าง Grid 3 ช่อง
+            let gridHtml = '<div style="display: flex; gap: 10px; height: 100%; width: 100%; padding: 0 12%;">';
+            for (let i = 0; i < itemsPerSlide; i++) {
+              // สุ่มรูปจากทั้งหมด
+              const item = items[Math.floor(Math.random() * items.length)];
+              let imgUrl = item.url || '';
+              if (imgUrl.includes('drive.google.com') && (imgUrl.includes('/d/') || imgUrl.includes('id='))) {
+                  const match = imgUrl.match(/\/d\/(.+?)\//) || imgUrl.match(/id=(.+?)(&|$)/);
+                  if (match) imgUrl = `https://lh3.googleusercontent.com/d/${match[1]}`;
+              }
+              gridHtml += `<div style="flex: 1; height: 100%; min-height: 300px; background-image: url('${imgUrl}'); background-size: cover; background-position: center; background-color: #111; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);"></div>`;
+            }
+            gridHtml += '</div>';
+
+            innerHtml += `
+              <div class="carousel-item ${activeClass}" style="height: 100%;">
+                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000; padding: 15px 0;">
+                  ${gridHtml}
+                </div>
+              </div>
+            `;
+          }
+        }
 
         const carouselHtml = `
           <div id="${carouselId}" class="carousel slide" data-bs-ride="false" style="width: 100%; height: 100%;">
-            <div class="carousel-indicators" style="margin-bottom: 0;">
+            <div class="carousel-indicators" style="margin-bottom: -15px;">
               ${indicatorsHtml}
             </div>
             <div class="carousel-inner" style="height: 100%;">
               ${innerHtml}
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev" style="width: 10%;">
+            <button class="carousel-control-prev" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev" style="width: 12%;">
               <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: rgba(0,0,0,0.5); border-radius: 50%; padding: 15px;"></span>
               <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#${carouselId}" data-bs-slide="next" style="width: 10%;">
+            <button class="carousel-control-next" type="button" data-bs-target="#${carouselId}" data-bs-slide="next" style="width: 12%;">
               <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: rgba(0,0,0,0.5); border-radius: 50%; padding: 15px;"></span>
               <span class="visually-hidden">Next</span>
             </button>
@@ -472,13 +500,13 @@
           const videoProjects = projects.filter(p => p.category === "Video Editor");
           let allVideoItems = [];
           videoProjects.forEach(p => { if (p.items) allVideoItems = allVideoItems.concat(p.items); });
-          buildSlider('home-video-slider', allVideoItems, 'videoCarousel', true);
+          buildSlider('home-video-slider', allVideoItems, 'videoCarousel', true, 1, 5); // 1 วิดีโอต่อสไลด์, สุ่ม 5 หน้า
 
           // --- Graphic Design ---
           const graphicProjects = projects.filter(p => p.category === "Graphic Design");
           let allGraphicItems = [];
           graphicProjects.forEach(p => { if (p.items) allGraphicItems = allGraphicItems.concat(p.items); });
-          buildSlider('home-graphic-slider', allGraphicItems, 'graphicCarousel', false);
+          buildSlider('home-graphic-slider', allGraphicItems, 'graphicCarousel', false, 3, 5); // 3 รูปต่อสไลด์, สุ่มเผื่อไว้ 5 หน้า
         })
         .catch(err => {
           console.error("Error loading sliders for home page:", err);
