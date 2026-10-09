@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -172,10 +172,10 @@
 
   <section class="hero reveal d-flex flex-column align-items-center justify-content-center text-center py-5" id="home">
     <div class="container mt-5">
-      <h6 class="mb-3 text-uppercase text-secondary" style="letter-spacing: 2px; font-weight: 600;">PAPHAWIN CREATIVE FREELANCER</h6>
-      <h1 class="display-3 fw-bold mb-3" style="font-weight: 700;">WORK WITH ME</h1>
-      <h5 class="mb-3 fw-normal">Video Editing &bull; Graphic Design</h5>
-      <p class="mb-4 text-secondary" style="font-size: 1.1rem;">มีไอเดียแต่ไม่มีเวลา เปลี่ยนไอเดียให้กลายเป็นผลงานที่ตอบโจทย์ได้</p>
+      <h6 class="mb-3 text-uppercase text-secondary" style="letter-spacing: 2px; font-weight: 600;">INDEPENDENT CREATIVE FREELANCER</h6>
+      <h1 class="display-3 fw-bold mb-3" style="font-weight: 700;">WORK WITH ME.</h1>
+      <h5 class="mb-3 fw-normal">Creative Content &bull; Video Editing &bull; Graphic Design</h5>
+      <p class="mb-4 text-secondary" style="font-size: 1.1rem;">เปลี่ยนไอเดียให้กลายเป็นผลงานที่ตอบโจทย์แบรนด์ของคุณ</p>
       <div class="mt-4">
         <a href="#" class="btn btn-dark rounded-pill px-4 py-2 me-md-2 mb-2 fw-medium">EXPLORE MY WORK</a>
         <a href="pricing.html" class="btn btn-outline-dark rounded-pill px-4 py-2 mb-2 fw-medium">VIEW PRICING &rarr;</a>
@@ -196,20 +196,21 @@
     <div class="container">
 
       <div class="section-label reveal">
-        บริการทั้งหมด
+        MY SERVICES
       </div>
 
 
       <div class="skills-grid">
 
-        <div class="skill-card reveal">
-          <span class="skill-number">
-            01
-          </span>
-
-          <h3>
-            Video Editing
-          </h3>
+        <div class="skill-card reveal" style="padding: 30px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <span class="skill-number" style="margin-bottom: 0;">01</span>
+            <h3 style="margin: 0;">Video Editing</h3>
+          </div>
+          <!-- Slider Container -->
+          <div id="home-video-slider" style="width: 100%; border-radius: 12px; overflow: hidden; background: #000; min-height: 250px; display: flex; align-items: center; justify-content: center;">
+            <div class="spinner-border text-light" role="status"></div>
+          </div>
         </div>
 
 
@@ -297,7 +298,7 @@
         <div class="tool-group reveal">
 
           <div class="section-label reveal">
-            AI & CREATIVE TOOLS ยกระดับให้งานดูมีคุณภาพมากขึ้น
+            AI & CREATIVE TOOLS
           </div>
 
 
@@ -357,6 +358,103 @@
 
 
   <script src="js/script.js"></script>
+
+  <!-- Home Video Slider Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sliderContainer = document.getElementById('home-video-slider');
+      if (!sliderContainer) return;
+
+      // 1. Fetch JSON data
+      fetch('data/database.json?t=' + new Date().getTime())
+        .then(res => res.json())
+        .then(data => {
+          const projects = data.projects || [];
+          
+          // 2. กรองเอาแค่งาน Video Editor
+          const videoProjects = projects.filter(p => p.category === "Video Editor");
+          
+          // รวบรวม items ทั้งหมด
+          let allVideoItems = [];
+          videoProjects.forEach(p => {
+            if (p.items) allVideoItems = allVideoItems.concat(p.items);
+          });
+
+          if (allVideoItems.length === 0) {
+            sliderContainer.innerHTML = '<div class="text-white p-4">ยังไม่มีผลงาน</div>';
+            return;
+          }
+
+          // 3. สุ่ม (Shuffle) ผลงาน
+          for (let i = allVideoItems.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [allVideoItems[i], allVideoItems[j]] = [allVideoItems[j], allVideoItems[i]];
+          }
+
+          // 4. ตัดมาแค่ 5 อันแรก
+          const selectedItems = allVideoItems.slice(0, 5);
+
+          // 5. สร้าง Bootstrap Carousel
+          const carouselId = 'videoCarousel';
+          let indicatorsHtml = '';
+          let innerHtml = '';
+
+          selectedItems.forEach((item, index) => {
+            const activeClass = index === 0 ? 'active' : '';
+            
+            // Extract Drive ID
+            let driveId = null;
+            if (item.url) {
+              const match = item.url.match(/\/d\/(.+?)\//) || item.url.match(/id=(.+?)(&|$)/);
+              if (match) driveId = match[1];
+            }
+
+            let mediaHtml = '';
+            if (driveId) {
+              mediaHtml = `<iframe src="https://drive.google.com/file/d/${driveId}/preview" width="100%" height="100%" style="border:none; min-height: 250px; background:#000;"></iframe>`;
+            } else {
+              mediaHtml = `<div style="height: 250px; display:flex; align-items:center; justify-content:center; color:#fff;">Invalid Link</div>`;
+            }
+
+            indicatorsHtml += `<button type="button" data-bs-target="#${carouselId}" data-bs-slide-to="${index}" class="${activeClass}" aria-label="Slide ${index + 1}"></button>`;
+            
+            innerHtml += `
+              <div class="carousel-item ${activeClass}" style="height: 100%;">
+                ${mediaHtml}
+                <div class="carousel-caption d-none d-md-block" style="background: rgba(0,0,0,0.5); border-radius: 8px; padding: 5px; bottom: 10px;">
+                  <p style="margin:0; font-size: 0.9rem;">${item.description || ''}</p>
+                </div>
+              </div>
+            `;
+          });
+
+          const carouselHtml = `
+            <div id="${carouselId}" class="carousel slide" data-bs-ride="false" style="width: 100%; height: 100%;">
+              <div class="carousel-indicators" style="margin-bottom: 0;">
+                ${indicatorsHtml}
+              </div>
+              <div class="carousel-inner" style="height: 100%;">
+                ${innerHtml}
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev" style="width: 10%;">
+                <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: rgba(0,0,0,0.5); border-radius: 50%; padding: 15px;"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#${carouselId}" data-bs-slide="next" style="width: 10%;">
+                <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: rgba(0,0,0,0.5); border-radius: 50%; padding: 15px;"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          `;
+
+          sliderContainer.innerHTML = carouselHtml;
+        })
+        .catch(err => {
+          console.error("Error loading videos for home page:", err);
+          sliderContainer.innerHTML = '<div class="text-white p-4">Error loading videos</div>';
+        });
+    });
+  </script>
 
 </body>
 </html>
