@@ -319,8 +319,8 @@ window.addEventListener('load', () => {
     const moveY = (e.clientY - centerY) / 40;
 
     // ขยับรูป (slate ไปทางนึง mac สวนอีกทางนึง เพื่อมิติที่ลึกขึ้น)
-    slateImg.style.transform = \	ranslate(\px, \px)\;
-    macImg.style.transform = \	ranslate(\px, \px)\;
+    slateImg.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    macImg.style.transform = `translate(${-moveX * 0.8}px, ${-moveY * 0.8}px)`;
   });
 });
 
