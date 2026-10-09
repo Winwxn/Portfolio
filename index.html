@@ -208,8 +208,8 @@
             <h3 style="margin: 0;">Video Editing</h3>
           </div>
           <!-- Slider Container -->
-          <div id="home-video-slider" style="width: 100%; border-radius: 12px; overflow: hidden; background: #000; min-height: 250px; display: flex; align-items: center; justify-content: center;">
-            <div class="spinner-border text-light" role="status"></div>
+          <div id="home-video-slider" style="width: 100%; border-radius: 12px; overflow: hidden; height: 350px; display: flex; align-items: center; justify-content: center; position: relative;">
+            <div class="spinner-border text-dark" role="status"></div>
           </div>
         </div>
 
@@ -220,8 +220,8 @@
             <h3 style="margin: 0;">Graphic Design</h3>
           </div>
           <!-- Slider Container -->
-          <div id="home-graphic-slider" style="width: 100%; border-radius: 12px; overflow: hidden; background: #000; min-height: 250px; display: flex; align-items: center; justify-content: center;">
-            <div class="spinner-border text-light" role="status"></div>
+          <div id="home-graphic-slider" style="width: 100%; border-radius: 12px; overflow: hidden; height: 350px; display: flex; align-items: center; justify-content: center; position: relative;">
+            <div class="spinner-border text-dark" role="status"></div>
           </div>
         </div>
 
@@ -396,9 +396,9 @@
                 if (match) driveId = match[1];
               }
               if (driveId) {
-                mediaHtml = `<iframe src="https://drive.google.com/file/d/${driveId}/preview" width="100%" height="100%" style="border:none; min-height: 250px; background:#000;"></iframe>`;
+                mediaHtml = `<iframe src="https://drive.google.com/file/d/${driveId}/preview" width="100%" height="100%" style="border:none; border-radius: 8px;"></iframe>`;
               } else {
-                mediaHtml = `<div style="height: 250px; display:flex; align-items:center; justify-content:center; color:#fff;">Invalid Link</div>`;
+                mediaHtml = `<div style="height: 100%; display:flex; align-items:center; justify-content:center; color:#555;">Invalid Link</div>`;
               }
             } else {
               let imgUrl = item.url || '';
@@ -406,7 +406,7 @@
                   const match = imgUrl.match(/\/d\/(.+?)\//) || imgUrl.match(/id=(.+?)(&|$)/);
                   if (match) imgUrl = `https://lh3.googleusercontent.com/d/${match[1]}`;
               }
-              mediaHtml = `<div style="width: 100%; height: 250px; background-image: url('${imgUrl}'); background-size: cover; background-position: center; background-color: #000;"></div>`;
+              mediaHtml = `<div style="width: 100%; height: 100%; background-image: url('${imgUrl}'); background-size: cover; background-position: center; border-radius: 8px;"></div>`;
             }
 
             indicatorsHtml += `<button type="button" data-bs-target="#${carouselId}" data-bs-slide-to="${index}" class="${activeClass}" aria-label="Slide ${index + 1}"></button>`;
@@ -426,23 +426,22 @@
             const activeClass = s === 0 ? 'active' : '';
             indicatorsHtml += `<button type="button" data-bs-target="#${carouselId}" data-bs-slide-to="${s}" class="${activeClass}" aria-label="Slide ${s + 1}"></button>`;
             
-            // สร้าง Grid 3 ช่อง
-            let gridHtml = '<div style="display: flex; gap: 10px; height: 100%; width: 100%; padding: 0 12%;">';
+            // สร้าง Grid 3 ช่อง โดยเอา padding ซ้ายขวาออก เพื่อให้เต็มขอบ Glass
+            let gridHtml = '<div style="display: flex; gap: 15px; height: 100%; width: 100%;">';
             for (let i = 0; i < itemsPerSlide; i++) {
-              // สุ่มรูปจากทั้งหมด
               const item = items[Math.floor(Math.random() * items.length)];
               let imgUrl = item.url || '';
               if (imgUrl.includes('drive.google.com') && (imgUrl.includes('/d/') || imgUrl.includes('id='))) {
                   const match = imgUrl.match(/\/d\/(.+?)\//) || imgUrl.match(/id=(.+?)(&|$)/);
                   if (match) imgUrl = `https://lh3.googleusercontent.com/d/${match[1]}`;
               }
-              gridHtml += `<div style="flex: 1; height: 100%; min-height: 300px; background-image: url('${imgUrl}'); background-size: cover; background-position: center; background-color: #111; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);"></div>`;
+              gridHtml += `<div style="flex: 1; height: 100%; background-image: url('${imgUrl}'); background-size: cover; background-position: center; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.15);"></div>`;
             }
             gridHtml += '</div>';
 
             innerHtml += `
               <div class="carousel-item ${activeClass}" style="height: 100%;">
-                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000; padding: 15px 0;">
+                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
                   ${gridHtml}
                 </div>
               </div>
