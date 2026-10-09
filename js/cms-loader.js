@@ -1,4 +1,4 @@
-﻿document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const videoContainer = document.getElementById("cms-video-container");
   const graphicContainer = document.getElementById("cms-graphic-container");
 
@@ -59,7 +59,7 @@
            }
         } else {
            if (driveId) {
-             mediaHtml = `<img src="https://drive.google.com/uc?export=view&id=${driveId}" class="img-fluid rounded-3 shadow-sm" style="width:100%; object-fit:contain;" alt="${item.description}">`;
+             mediaHtml = `<img src="https://lh3.googleusercontent.com/d/${driveId}" class="img-fluid rounded-3 shadow-sm" style="width:100%; object-fit:contain;" alt="${item.description}">`;
            } else {
              mediaHtml = `<img src="${item.url}" class="img-fluid rounded-3 shadow-sm" style="width:100%; object-fit:contain;" alt="${item.description}">`;
            }
