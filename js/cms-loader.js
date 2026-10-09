@@ -33,17 +33,24 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    let html = '';
+    const accordionId = `accordion-${type}`;
+    let html = `<div class="container mb-5 reveal active"><div class="accordion" id="${accordionId}">`;
     
-    projects.forEach(project => {
+    projects.forEach((project, index) => {
+      const isFirst = index === 0;
+      const collapseId = `collapse-${type}-${index}`;
+      const headingId = `heading-${type}-${index}`;
+
       html += `
-      <section class="container mb-5 reveal active">
-        <div class="row justify-content-center">
-          <div class="col-12 text-center mb-4">
-            <div class="project-header">
-              <h4 class="mb-0 fw-bold" style="color: #111;">${project.title}</h4>
-            </div>
-          </div>
+        <div class="accordion-item mb-4" style="border-radius: 12px; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px);">
+          <h2 class="accordion-header" id="${headingId}">
+            <button class="accordion-button ${isFirst ? '' : 'collapsed'}" type="button" data-bs-toggle="collapse" data-bs-target="#${collapseId}" aria-expanded="${isFirst ? 'true' : 'false'}" aria-controls="${collapseId}" style="font-size: 1.25rem; font-weight: 600; color: #111; padding: 1.5rem; background-color: transparent; box-shadow: none;">
+              ${project.title}
+            </button>
+          </h2>
+          <div id="${collapseId}" class="accordion-collapse collapse ${isFirst ? 'show' : ''}" aria-labelledby="${headingId}" data-bs-parent="#${accordionId}">
+            <div class="accordion-body" style="padding: 2rem 1.5rem;">
+              <div class="row justify-content-center">
       `;
 
       const items = project.items || [];
@@ -68,22 +75,38 @@ document.addEventListener("DOMContentLoaded", () => {
         const colClass = 'col-lg-4 col-md-6 col-12 mb-4';
         
         html += `
-          <div class="${colClass}">
-            <div class="skill-card p-3 p-md-4 text-center h-100 d-flex flex-column justify-content-center" style="min-height: auto; cursor: default; transform: none;">
-              ${mediaHtml}
-              <h6 class="mt-3 mb-0 fw-bold text-secondary">${item.description}</h6>
-            </div>
-          </div>
+                <div class="${colClass}">
+                  <div class="skill-card p-3 p-md-4 text-center h-100 d-flex flex-column justify-content-center bg-white" style="border-radius: 12px; min-height: auto; cursor: default; transform: none; box-shadow: 0 2px 10px rgba(0,0,0,0.03);">
+                    ${mediaHtml}
+                    <h6 class="mt-3 mb-0 fw-bold text-secondary">${item.description}</h6>
+                  </div>
+                </div>
         `;
       });
 
       html += `
+              </div>
+            </div>
+          </div>
         </div>
-      </section>
       `;
     });
 
+    html += `</div></div>`;
     container.innerHTML = html;
+
+    // เพิ่มระบบเลื่อนหน้าจอ (Scroll) อัตโนมัติเมื่อกดเปิด Accordion
+    const collapseElements = container.querySelectorAll('.accordion-collapse');
+    collapseElements.forEach(el => {
+      el.addEventListener('shown.bs.collapse', function (e) {
+        const header = e.target.previousElementSibling;
+        const headerOffset = header.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({
+          top: headerOffset - 100, // เผื่อพื้นที่ให้ Navbar ด้านบน (ปรับตัวเลข 100 ได้ถ้า navbar บัง)
+          behavior: 'smooth'
+        });
+      });
+    });
   }
 
   function extractDriveId(url) {
