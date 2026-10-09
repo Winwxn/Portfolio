@@ -285,7 +285,6 @@ window.addEventListener('load', () => {
     width: '180px', // ลดจาก 350px
     maxWidth: '25vw',
     opacity: '0.8',
-    filter: 'blur(2px)', // ทำให้ดูมีมิติเบลอ ๆ หน่อย (Depth of Field)
     transition: 'transform 0.1s ease-out'
   });
 
@@ -299,7 +298,6 @@ window.addEventListener('load', () => {
     width: '250px', // ลดจาก 450px
     maxWidth: '35vw',
     opacity: '0.8',
-    filter: 'blur(1px)',
     transition: 'transform 0.1s ease-out'
   });
 
