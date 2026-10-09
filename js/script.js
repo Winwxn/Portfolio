@@ -1,4 +1,4 @@
-﻿/* ===============================
+/* ===============================
    NAVBAR SCROLL
 =============================== */
 const navbar = document.getElementById("mainNavbar");
@@ -225,28 +225,38 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ===============================
-   PRELOADER (TRUE LOAD)
+   PRELOADER (TRUE LOAD) + FALLBACK
 =============================== */
 document.body.classList.add("loading-state");
-window.addEventListener("load", () => {
+
+// ฟังก์ชันสำหรับปิด Preloader
+function hidePreloader() {
   const preloader = document.getElementById("preloader");
-  if (preloader) {
+  if (preloader && !preloader.classList.contains("fade-out")) {
+    preloader.classList.add("fade-out");
+    document.body.classList.remove("loading-state");
     setTimeout(() => {
-      preloader.classList.add("fade-out");
-      document.body.classList.remove("loading-state");
-      setTimeout(() => {
-        preloader.remove();
-      }, 600);
-    }, 300);
+      preloader.remove();
+    }, 600);
   } else {
     document.body.classList.remove("loading-state");
   }
+}
+
+// 1. ปิด Preloader เมื่อโหลดทุกอย่างเสร็จ
+window.addEventListener("load", () => {
+  setTimeout(hidePreloader, 300);
 });
+
+// 2. Fallback: บังคับปิด Preloader ถ้าโหลดนานเกิน 3 วินาที (ป้องกันการค้าง)
+setTimeout(hidePreloader, 3000);
+
 
 /* ===============================
    FLOATING PARALLAX BACKGROUND
 =============================== */
-document.addEventListener('DOMContentLoaded', () => {
+// เปลี่ยนจาก DOMContentLoaded เป็น load เพื่อให้ระบบโหลดเว็บเสร็จก่อน แล้วค่อยโหลดรูปพื้นหลังลับหลัง (เว็บจะได้ไม่ช้า)
+window.addEventListener('load', () => {
   // Check if we are inside a subfolder (e.g. /work/)
   const isSubfolder = window.location.pathname.includes('/work/');
   const imgPathPrefix = isSubfolder ? '../' : '';
