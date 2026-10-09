@@ -182,9 +182,12 @@
           <h3 style="font-size: 36px; font-weight: bold; letter-spacing: -1px; margin-bottom: 20px; color: #111;">Let's create something amazing together.</h3>
           <p style="font-size: 18px; color: #555; margin-bottom: 30px;">Feel free to reach out for collaborations, project inquiries, or just to say hi!</p>
           <div class="tool-list">
-            <div class="tool-item"><span>Email: paphawin.a.work@gmail.com</span></div>
-            <div class="tool-item"><span>or Email: sims4youth@gmail.com</span></div>
-            <div class="tool-item"><span>Phone: 0623637004</span></div>
+            <div class="tool-item" style="display: flex; flex-direction: column; gap: 5px;">
+              <span style="font-weight: bold; color: #111; font-size: 1.1rem;">Email</span>
+              <span style="color: #555;">paphawin.a.work@gmail.com</span>
+              <span style="color: #555;"><span style="color: #888; font-style: italic;">or</span> sims4youth@gmail.com</span>
+            </div>
+            <div class="tool-item"><span><strong>Phone:</strong> 0623637004</span></div>
           </div>
         </div>
         <div class="tool-group reveal" style="border:none; padding-top:0;">
@@ -194,7 +197,8 @@
             <!-- Success Message Container -->
             <div id="success-message" style="display: none; padding: 25px; background: rgba(76, 175, 80, 0.1); border-radius: 12px; border: 1px solid #4CAF50; text-align: center; animation: fadeIn 0.5s;">
               <h5 style="color: #2e7d32; font-weight: bold; margin-bottom: 15px;">ได้รับอีเมลเรียบร้อยแล้วครับ ✅</h5>
-              <p style="color: #333; margin-bottom: 0; line-height: 1.6;">หากได้รับอีเมลแล้วระบบจะรีบทำการติดต่อท่านกลับภายใน 24 ชั่วโมง<br>หากไม่มีการติดต่อกลับ สามารถแอดไลน์เข้ามาปรึกษาได้ครับ</p>
+              <p style="color: #333; margin-bottom: 20px; line-height: 1.6;">หากได้รับอีเมลแล้วระบบจะรีบทำการติดต่อท่านกลับภายใน 24 ชั่วโมง<br>หากไม่มีการติดต่อกลับ สามารถแอดไลน์เข้ามาปรึกษาได้ครับ</p>
+              <button type="button" id="reset-btn" style="padding: 10px 20px; border-radius: 8px; border: 1px solid #4CAF50; background: #fff; color: #4CAF50; font-weight: bold; cursor: pointer; transition: 0.2s;" onmouseover="this.style.background='#4CAF50'; this.style.color='#fff';" onmouseout="this.style.background='#fff'; this.style.color='#4CAF50';">ย้อนกลับ (ส่งข้อความใหม่)</button>
             </div>
 
             <!-- Contact Form -->
@@ -209,58 +213,30 @@
                 <textarea name="message" placeholder="Message" rows="4" required style="width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.5);"></textarea>
               </div>
 
-              <!-- Simple Math Captcha -->
-              <div style="margin-bottom: 20px; padding: 15px; background: rgba(0,0,0,0.02); border-radius: 12px; border: 1px solid rgba(0,0,0,0.05); text-align: left;">
-                <label style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: #555; font-weight: 600;">
-                  🤖 ยืนยันว่าไม่ใช่บอท (Anti-Spam)
-                </label>
-                <div style="display: flex; align-items: center; gap: 10px;">
-                  <span id="captcha-question" style="font-weight: bold; font-size: 1.2rem; color: #111;"></span>
-                  <input type="number" id="captcha-answer" placeholder="คำตอบ" required style="width: 120px; padding: 10px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.1); background: #fff;">
-                </div>
-              </div>
+              <!-- Honeypot Anti-Spam (Invisible to users) -->
+              <input type="text" name="_gotcha" style="display:none" />
 
               <button type="submit" id="submit-btn" style="padding: 12px 25px; border-radius: 12px; border: none; background: #111; color: #fff; font-weight: bold; cursor: pointer; transition: transform 0.2s; width: 100%;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">Send</button>
             </form>
           </div>
 
-          <!-- JavaScript for Form AJAX and Captcha -->
+          <!-- JavaScript for Form AJAX -->
           <script>
             document.addEventListener('DOMContentLoaded', function() {
               const form = document.getElementById('contact-form');
               const successMsg = document.getElementById('success-message');
-              const captchaQuestion = document.getElementById('captcha-question');
-              const captchaAnswer = document.getElementById('captcha-answer');
               const submitBtn = document.getElementById('submit-btn');
-      
-              let num1, num2;
-      
-              function generateCaptcha() {
-                num1 = Math.floor(Math.random() * 10) + 1;
-                num2 = Math.floor(Math.random() * 10) + 1;
-                captchaQuestion.textContent = num1 + " + " + num2 + " = ";
-                captchaAnswer.value = '';
-              }
-      
-              generateCaptcha(); // Initialize on load
+              const resetBtn = document.getElementById('reset-btn');
       
               form.addEventListener('submit', function(e) {
                 e.preventDefault(); // ป้องกันการเปลี่ยนหน้าเว็บ
       
-                // 1. ตรวจสอบ Captcha ว่าถูกไหม
-                if (parseInt(captchaAnswer.value) !== (num1 + num2)) {
-                  alert('คำตอบคณิตศาสตร์ไม่ถูกต้อง กรุณาลองใหม่ครับ (เพื่อป้องกันบอทสแปม)');
-                  generateCaptcha(); // เปลี่ยนเลขใหม่
-                  return; // หยุดการทำงานถ้าเลขผิด
-                }
-      
-                // 2. ขึ้นสถานะกำลังส่ง
                 submitBtn.textContent = 'กำลังส่งข้อมูล...';
                 submitBtn.disabled = true;
       
                 const formData = new FormData(form);
       
-                // 3. ยิงข้อมูลไปที่ Formspree แบบเบื้องหลัง (AJAX)
+                // ยิงข้อมูลไปที่ Formspree แบบเบื้องหลัง (AJAX)
                 fetch(form.action, {
                   method: form.method,
                   body: formData,
@@ -269,19 +245,25 @@
                   }
                 }).then(response => {
                   if (response.ok) {
-                    // ถ้าสำเร็จ ให้ซ่อนฟอร์ม และโชว์ข้อความขอบคุณ
+                    form.reset(); // ล้างข้อมูลเก่า
                     form.style.display = 'none';
                     successMsg.style.display = 'block';
                   } else {
                     alert('เกิดข้อผิดพลาดในการส่งข้อความ กรุณาลองใหม่อีกครั้งครับ');
-                    submitBtn.textContent = 'Send';
-                    submitBtn.disabled = false;
                   }
+                  submitBtn.textContent = 'Send';
+                  submitBtn.disabled = false;
                 }).catch(error => {
                   alert('เกิดข้อผิดพลาดในการส่งข้อความ กรุณาลองใหม่อีกครั้งครับ');
                   submitBtn.textContent = 'Send';
                   submitBtn.disabled = false;
                 });
+              });
+
+              // ปุ่มย้อนกลับ
+              resetBtn.addEventListener('click', function() {
+                successMsg.style.display = 'none';
+                form.style.display = 'block';
               });
             });
           </script>
