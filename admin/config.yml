@@ -1,4 +1,4 @@
-﻿backend:
+backend:
   name: github
   repo: Winwxn/Portfolio
   branch: main
@@ -25,7 +25,7 @@ collections:
               - name: "category"
                 label: "หมวดหมู่ผลงาน (Category)"
                 widget: "select"
-                options: ["Graphic Design", "Video Editor"]
+                options: ["Graphic Design", "Video Editor", "Highlight Graphic", "Highlight Video"]
               - name: "items"
                 label: "รายการรูปภาพ/วิดีโอ (Items)"
                 widget: "list"
