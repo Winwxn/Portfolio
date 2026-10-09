@@ -282,8 +282,8 @@ window.addEventListener('load', () => {
     position: 'absolute',
     left: '-2%',
     top: '15%',
-    width: '180px', // ลดจาก 350px
-    maxWidth: '25vw',
+    width: '300px', 
+    maxWidth: '40vw',
     opacity: '0.8',
     transition: 'transform 0.1s ease-out'
   });
@@ -295,8 +295,8 @@ window.addEventListener('load', () => {
     position: 'absolute',
     right: '-2%',
     top: '35%',
-    width: '250px', // ลดจาก 450px
-    maxWidth: '35vw',
+    width: '400px', 
+    maxWidth: '50vw',
     opacity: '0.8',
     transition: 'transform 0.1s ease-out'
   });
