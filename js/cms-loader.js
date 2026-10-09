@@ -11,13 +11,31 @@ document.addEventListener("DOMContentLoaded", () => {
         const projects = data.projects || [];
         
         if (videoContainer) {
+          const highlightVideoProjects = projects.filter(p => p.category === "Highlight Video");
           const videoProjects = projects.filter(p => p.category === "Video Editor");
-          renderProjects(videoProjects, videoContainer, 'video');
+          
+          videoContainer.innerHTML = '';
+          const hlDiv = document.createElement('div');
+          const prjDiv = document.createElement('div');
+          videoContainer.appendChild(hlDiv);
+          videoContainer.appendChild(prjDiv);
+          
+          renderHighlights(highlightVideoProjects, hlDiv, 'video');
+          renderProjects(videoProjects, prjDiv, 'video');
         }
         
         if (graphicContainer) {
+          const highlightGraphicProjects = projects.filter(p => p.category === "Highlight Graphic");
           const graphicProjects = projects.filter(p => p.category === "Graphic Design");
-          renderProjects(graphicProjects, graphicContainer, 'image');
+          
+          graphicContainer.innerHTML = '';
+          const hlDiv = document.createElement('div');
+          const prjDiv = document.createElement('div');
+          graphicContainer.appendChild(hlDiv);
+          graphicContainer.appendChild(prjDiv);
+          
+          renderHighlights(highlightGraphicProjects, hlDiv, 'image');
+          renderProjects(graphicProjects, prjDiv, 'image');
         }
       })
       .catch(err => {
@@ -115,6 +133,60 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       });
     });
+  }
+
+  function renderHighlights(projects, container, type) {
+    if (projects.length === 0) return; 
+
+    let html = `
+      <div class="container mb-5 reveal active">
+        <h3 class="text-center fw-bold mb-4" style="color: #111;">Example Works</h3>
+        <div class="row justify-content-center">
+    `;
+
+    let allItems = [];
+    projects.forEach(p => {
+      if (p.items) allItems = allItems.concat(p.items);
+    });
+    
+    const limitedItems = allItems.slice(0, 3);
+
+    limitedItems.forEach(item => {
+      let mediaHtml = '';
+      let driveId = extractDriveId(item.url);
+      
+      if (type === 'video') {
+         if (driveId) {
+           mediaHtml = `<iframe src="https://drive.google.com/file/d/${driveId}/preview" width="100%" height="100%" style="border:none; border-radius: 12px; min-height: 55vh; background: #000;"></iframe>`;
+         } else {
+           mediaHtml = `<div class="p-5 text-secondary border border-dashed rounded">Invalid Google Drive Link</div>`;
+         }
+      } else {
+         if (driveId) {
+           mediaHtml = `<img src="https://lh3.googleusercontent.com/d/${driveId}" class="img-fluid rounded-3 shadow-sm" style="width:100%; object-fit:contain;" alt="${item.description}">`;
+         } else {
+           mediaHtml = `<img src="${item.url}" class="img-fluid rounded-3 shadow-sm" style="width:100%; object-fit:contain;" alt="${item.description}">`;
+         }
+      }
+
+      const colClass = 'col-lg-4 col-md-6 col-12 mb-4';
+      
+      html += `
+        <div class="${colClass}">
+          <div class="skill-card p-3 p-md-4 text-center h-100 d-flex flex-column justify-content-center bg-white" style="border-radius: 12px; min-height: auto; cursor: default; transform: none; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            ${mediaHtml}
+            <h6 class="mt-3 mb-0 fw-bold text-secondary">${item.description}</h6>
+          </div>
+        </div>
+      `;
+    });
+
+    html += `
+        </div>
+      </div>
+    `;
+
+    container.innerHTML = html;
   }
 
   function extractDriveId(url) {
