@@ -20,16 +20,20 @@ collections:
             summary: "{{fields.title}} - {{fields.category}}"
             fields:
               - name: "title"
-                label: "ชื่อโปรเจกต์ (Project Title)"
+                label: "ชื่อโปรเจกต์ / บริษัท (Project Title)"
                 widget: "string"
               - name: "category"
                 label: "หมวดหมู่ผลงาน (Category)"
                 widget: "select"
                 options: ["Graphic Design", "Video Editor", "Highlight Graphic", "Highlight Video"]
+              - name: "brands"
+                label: "รายชื่อแบรนด์ย่อยในบริษัทนี้ (เช่น HiD, Dena, Dskin - เว้นว่างได้ถ้าไม่มี)"
+                widget: "list"
+                required: false
               - name: "items"
                 label: "รายการรูปภาพ/วิดีโอ (Items)"
                 widget: "list"
-                summary: "{{fields.description}}"
+                summary: "{{fields.brand}} | {{fields.description}}"
                 fields:
                   - name: "url"
                     label: "ลิงก์ Google Drive"
@@ -38,3 +42,7 @@ collections:
                     label: "รายละเอียด (จำเป็น)"
                     widget: "text"
                     required: true
+                  - name: "brand"
+                    label: "แบรนด์ย่อย (เช่น HiD, Dena, Dskin - เว้นว่างได้)"
+                    widget: "string"
+                    required: false
