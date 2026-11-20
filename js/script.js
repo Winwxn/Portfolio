@@ -242,14 +242,26 @@ function hidePreloader() {
     document.body.classList.remove("loading-state");
   }
 }
+window.hidePreloader = hidePreloader;
 
-// 1. ปิด Preloader เมื่อโหลดทุกอย่างเสร็จ
-window.addEventListener("load", () => {
-  setTimeout(hidePreloader, 300);
-});
+const isCmsWorkPage = Boolean(
+  document.getElementById("cms-video-container") ||
+  document.getElementById("cms-graphic-container")
+);
 
-// 2. Fallback: บังคับปิด Preloader ถ้าโหลดนานเกิน 3 วินาที (ป้องกันการค้าง)
-setTimeout(hidePreloader, 3000);
+if (!isCmsWorkPage) {
+  // หน้าทั่วไป: ปิด Preloader เมื่อโหลดทุกอย่างเสร็จ
+  window.addEventListener("load", () => {
+    setTimeout(hidePreloader, 300);
+  });
+
+  // Fallback หน้าทั่วไป: บังคับปิด Preloader ถ้าโหลดนานเกิน 4 วินาที
+  setTimeout(hidePreloader, 4000);
+} else {
+  // หน้า editor.html / graphic.html: รอให้ cms-loader.js โหลดสคริปต์และวิดีโอ/รูปภาพเสร็จก่อนแล้วค่อยสั่ง hidePreloader()
+  // มี Fallback สูงสุด 15 วินาที เผื่อกรณี Google Drive ตอบสนองช้ามาก
+  setTimeout(hidePreloader, 15000);
+}
 
 
 /* ===============================
