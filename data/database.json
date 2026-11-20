@@ -3,42 +3,56 @@
     {
       "title": "บริษัท ลาน่าแกรนด์เวลธ์ จํากัด",
       "category": "Video Editor",
+      "brands": [
+        "HiD",
+        "Dena",
+        "Dskin"
+      ],
       "items": [
         {
           "url": "https://drive.google.com/file/d/1ob89-PipkbTqP62aOjvUcFTJpKv3r1_l/view?usp=sharing",
-          "description": "HiD Native"
+          "description": "HiD Native",
+          "brand": "HiD"
         },
         {
           "url": "https://drive.google.com/file/d/1ZfSx8ayMkKHNvuzv9YCF9BZRdrGzN5oG/view?usp=sharing",
-          "description": "HiD Payday"
+          "description": "HiD Payday",
+          "brand": "HiD"
         },
         {
           "url": "https://drive.google.com/file/d/1KYFs1iVpMjCpaHSgm4fEvOiBs0he39jI/view?usp=sharing",
-          "description": "HiD Content ทำไมเตี้ยกว่าปีที่แล้ว"
+          "description": "HiD Content ทำไมเตี้ยกว่าปีที่แล้ว",
+          "brand": "HiD"
         },
         {
           "url": "https://drive.google.com/file/d/11E7z8NA4i10gb0h1ZrfwT0KTF5ALf80Z/view?usp=sharing",
-          "description": "HiD Content กินอะไรถึงสูงขนาดนี้"
+          "description": "HiD Content กินอะไรถึงสูงขนาดนี้",
+          "brand": "HiD"
         },
         {
           "url": "https://drive.google.com/file/d/1FSy9T2Q1d7jwgMzIRuNjJaYYecMbmAs4/view?usp=sharing",
-          "description": "HiD Content ทายาท HiD"
+          "description": "HiD Content ทายาท HiD",
+          "brand": "HiD"
         },
         {
           "url": "https://drive.google.com/file/d/1-tPR9odMAoCx6VoanczI9wZlm-e9kPdj/view?usp=sharing",
-          "description": "HiD Payday 10.10"
+          "description": "HiD Payday 10.10",
+          "brand": "HiD"
         },
         {
           "url": "https://drive.google.com/file/d/1VaKwcgCwy2rW1lSsYvWOm2cBabaRVF9T/view?usp=drive_link",
-          "description": "HiD Content"
+          "description": "HiD Content",
+          "brand": "HiD"
         },
         {
           "url": "https://drive.google.com/file/d/1dofAVTo1yxY4exTWnbytcfYXulGfe2D_/view?usp=drive_link",
-          "description": "HiD Content"
+          "description": "HiD Content",
+          "brand": "HiD"
         },
         {
           "url": "https://drive.google.com/file/d/1uQ5MjdJztP5Z1mPeNZnHJStv4qv9kQol/view?usp=drive_link",
-          "description": "HiD Content"
+          "description": "HiD Content",
+          "brand": "HiD"
         }
       ]
     },
