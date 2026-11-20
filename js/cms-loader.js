@@ -2,6 +2,55 @@ document.addEventListener("DOMContentLoaded", () => {
   const videoContainer = document.getElementById("cms-video-container");
   const graphicContainer = document.getElementById("cms-graphic-container");
 
+  function finishPageLoading() {
+    const triggerHide = () => {
+      if (typeof window.hidePreloader === "function") {
+        setTimeout(() => window.hidePreloader(), 300);
+      }
+    };
+
+    if (document.readyState === "complete") {
+      triggerHide();
+    } else {
+      window.addEventListener("load", triggerHide, { once: true });
+    }
+  }
+
+  function waitForMediaToLoad(containerEl) {
+    if (!containerEl) {
+      finishPageLoading();
+      return;
+    }
+
+    const mediaElements = Array.from(containerEl.querySelectorAll("iframe, img"));
+    if (mediaElements.length === 0) {
+      finishPageLoading();
+      return;
+    }
+
+    let loadedCount = 0;
+    const totalCount = mediaElements.length;
+    let isDone = false;
+
+    function markOneLoaded() {
+      if (isDone) return;
+      loadedCount++;
+      if (loadedCount >= totalCount) {
+        isDone = true;
+        finishPageLoading();
+      }
+    }
+
+    mediaElements.forEach(el => {
+      if (el.tagName === "IMG" && el.complete) {
+        markOneLoaded();
+      } else {
+        el.addEventListener("load", markOneLoaded, { once: true });
+        el.addEventListener("error", markOneLoaded, { once: true });
+      }
+    });
+  }
+
   if (videoContainer || graphicContainer) {
     const jsonUrl = window.location.pathname.includes('/work/') ? '../data/database.json' : 'data/database.json';
     
@@ -22,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
           renderHighlights(highlightVideoProjects, hlDiv, 'video');
           renderProjects(videoProjects, prjDiv, 'video');
+          waitForMediaToLoad(videoContainer);
         }
         
         if (graphicContainer) {
@@ -36,12 +86,14 @@ document.addEventListener("DOMContentLoaded", () => {
           
           renderHighlights(highlightGraphicProjects, hlDiv, 'image');
           renderProjects(graphicProjects, prjDiv, 'image');
+          waitForMediaToLoad(graphicContainer);
         }
       })
       .catch(err => {
         console.error("Error loading CMS data:", err);
         if (videoContainer) videoContainer.innerHTML = '<div class="text-center text-danger">Failed to load projects.</div>';
         if (graphicContainer) graphicContainer.innerHTML = '<div class="text-center text-danger">Failed to load projects.</div>';
+        finishPageLoading();
       });
   }
 
@@ -169,15 +221,15 @@ document.addEventListener("DOMContentLoaded", () => {
         
         if (type === 'video') {
            if (driveId) {
-             mediaHtml = `<iframe src="https://drive.google.com/file/d/${driveId}/preview" loading="lazy" width="100%" height="100%" style="border:none; border-radius: 12px; min-height: 55vh; background: #000;"></iframe>`;
+             mediaHtml = `<iframe src="https://drive.google.com/file/d/${driveId}/preview" width="100%" height="100%" style="border:none; border-radius: 12px; min-height: 55vh; background: #000;"></iframe>`;
            } else {
              mediaHtml = `<div class="p-5 text-secondary border border-dashed rounded">Invalid Google Drive Link</div>`;
            }
         } else {
            if (driveId) {
-             mediaHtml = `<img src="https://lh3.googleusercontent.com/d/${driveId}" loading="lazy" class="img-fluid rounded-3 shadow-sm" style="width:100%; object-fit:contain;" alt="${item.description}">`;
+             mediaHtml = `<img src="https://lh3.googleusercontent.com/d/${driveId}" class="img-fluid rounded-3 shadow-sm" style="width:100%; object-fit:contain;" alt="${item.description}">`;
            } else {
-             mediaHtml = `<img src="${item.url}" loading="lazy" class="img-fluid rounded-3 shadow-sm" style="width:100%; object-fit:contain;" alt="${item.description}">`;
+             mediaHtml = `<img src="${item.url}" class="img-fluid rounded-3 shadow-sm" style="width:100%; object-fit:contain;" alt="${item.description}">`;
            }
         }
 
@@ -295,15 +347,15 @@ document.addEventListener("DOMContentLoaded", () => {
       
       if (type === 'video') {
          if (driveId) {
-           mediaHtml = `<iframe src="https://drive.google.com/file/d/${driveId}/preview" loading="lazy" width="100%" height="100%" style="border:none; border-radius: 12px; min-height: 55vh; background: #000;"></iframe>`;
+           mediaHtml = `<iframe src="https://drive.google.com/file/d/${driveId}/preview" width="100%" height="100%" style="border:none; border-radius: 12px; min-height: 55vh; background: #000;"></iframe>`;
          } else {
            mediaHtml = `<div class="p-5 text-secondary border border-dashed rounded">Invalid Google Drive Link</div>`;
          }
       } else {
          if (driveId) {
-           mediaHtml = `<img src="https://lh3.googleusercontent.com/d/${driveId}" loading="lazy" class="img-fluid rounded-3 shadow-sm" style="width:100%; object-fit:contain;" alt="${item.description}">`;
+           mediaHtml = `<img src="https://lh3.googleusercontent.com/d/${driveId}" class="img-fluid rounded-3 shadow-sm" style="width:100%; object-fit:contain;" alt="${item.description}">`;
          } else {
-           mediaHtml = `<img src="${item.url}" loading="lazy" class="img-fluid rounded-3 shadow-sm" style="width:100%; object-fit:contain;" alt="${item.description}">`;
+           mediaHtml = `<img src="${item.url}" class="img-fluid rounded-3 shadow-sm" style="width:100%; object-fit:contain;" alt="${item.description}">`;
          }
       }
 
